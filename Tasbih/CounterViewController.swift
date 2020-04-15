@@ -12,6 +12,7 @@ import SnapKit
 class CounterViewController: UIViewController {
     
     var count = 0
+    var feedbackGenerator: UIImpactFeedbackGenerator?
     
     var wordsView: UIView = {
         let view = UIView()
@@ -119,6 +120,7 @@ class CounterViewController: UIViewController {
         let resizedImage = image?.resized(to: CGSize(width: 25, height: 25))
         button.setImage(resizedImage, for: .normal)
         button.tintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+        button.addTarget(self, action: #selector(settingsPressed), for: .touchUpInside)
         return button
     }()
     
@@ -132,12 +134,13 @@ class CounterViewController: UIViewController {
         return button
     }()
     
-    var addButton: UIButton = {
+    var listButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(named: "add")
+        let image = UIImage(named: "list")
         let resizedImage = image?.resized(to: CGSize(width: 25, height: 25))
         button.setImage(resizedImage, for: .normal)
         button.tintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+        button.addTarget(self, action: #selector(listPressed), for: .touchUpInside)
         return button
     }()
 
@@ -149,6 +152,9 @@ class CounterViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePressed))
         transparentView.addGestureRecognizer(tap)
         
+        feedbackGenerator = UIImpactFeedbackGenerator.init(style: .light)
+        feedbackGenerator?.prepare()
+        
         setUpWordsView()
         setUpCounterView()
         setUpButtons()
@@ -158,21 +164,33 @@ class CounterViewController: UIViewController {
     @objc func counterPressed() {
         count+=1
         counterButton.setTitle("\(count)", for: .normal)
+        feedbackGenerator?.impactOccurred()
     }
     
     @objc func resetPressed() {
         count = 0
         counterButton.setTitle("\(count)", for: .normal)
+        feedbackGenerator?.impactOccurred()
     }
     
     @objc func meaningPressed() {
+        feedbackGenerator?.impactOccurred()
         self.transparentView.isHidden = false
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.meaningView.isHidden = false
         })
     }
     
+    @objc func settingsPressed() {
+        feedbackGenerator?.impactOccurred()
+    }
+    
+    @objc func listPressed() {
+        feedbackGenerator?.impactOccurred()
+    }
+    
     @objc func closePressed() {
+        feedbackGenerator?.impactOccurred()
         self.transparentView.isHidden = true
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.meaningView.isHidden = true
@@ -225,7 +243,6 @@ class CounterViewController: UIViewController {
             make.height.equalTo(30)
             make.width.equalTo(100)
         }
-        
     }
     
     func setUpCounterView() {
@@ -248,7 +265,7 @@ class CounterViewController: UIViewController {
     
     func setUpButtons() {
         var buttonStackView = UIStackView()
-        buttonStackView = UIStackView(arrangedSubviews: [resetButton, settingsButton, addButton])
+        buttonStackView = UIStackView(arrangedSubviews: [resetButton, settingsButton, listButton])
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 10
         
@@ -269,7 +286,7 @@ class CounterViewController: UIViewController {
             make.top.equalTo(view)
             make.bottom.equalTo(view)
         }
-        
+
         transparentView.addSubview(meaningView)
         meaningView.snp.makeConstraints { (make) in
             make.leading.equalTo(transparentView).offset(16)
@@ -277,14 +294,14 @@ class CounterViewController: UIViewController {
             make.bottom.equalTo(transparentView).offset(-64)
             make.height.equalTo(transparentView).multipliedBy(0.4)
         }
-        
+
         meaningView.addSubview(closeButton)
         closeButton.snp.makeConstraints { (make) in
             make.top.equalTo(meaningView).offset(8)
             make.leading.equalTo(meaningView).offset(8)
             make.height.width.equalTo(25)
         }
-        
+
         meaningView.addSubview(meaningLabel)
         meaningLabel.snp.makeConstraints { (make) in
             make.center.equalTo(meaningView)
