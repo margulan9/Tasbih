@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		2B8855EA2446CD0A00B8DF0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8855E92446CD0A00B8DF0F /* AppDelegate.swift */; };
 		2B8855EC2446CD0A00B8DF0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8855EB2446CD0A00B8DF0F /* SceneDelegate.swift */; };
-		2B8855EE2446CD0A00B8DF0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8855ED2446CD0A00B8DF0F /* ViewController.swift */; };
-		2B8855F12446CD0A00B8DF0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B8855EF2446CD0A00B8DF0F /* Main.storyboard */; };
 		2B8855F32446CD0B00B8DF0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B8855F22446CD0B00B8DF0F /* Assets.xcassets */; };
 		2B8855F62446CD0B00B8DF0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B8855F42446CD0B00B8DF0F /* LaunchScreen.storyboard */; };
+		2B8855FE2446CDF100B8DF0F /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8855FD2446CDF100B8DF0F /* CounterViewController.swift */; };
+		8FAC29E795AA109CF07012D2 /* Pods_Tasbih.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F43633513F366CD8A300DC /* Pods_Tasbih.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		17F43633513F366CD8A300DC /* Pods_Tasbih.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tasbih.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B8855E62446CD0A00B8DF0F /* Tasbih.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tasbih.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B8855E92446CD0A00B8DF0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B8855EB2446CD0A00B8DF0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2B8855ED2446CD0A00B8DF0F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2B8855F02446CD0A00B8DF0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2B8855F22446CD0B00B8DF0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B8855F52446CD0B00B8DF0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B8855F72446CD0B00B8DF0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B8855FD2446CDF100B8DF0F /* CounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewController.swift; sourceTree = "<group>"; };
+		422B79F20F0CED6FF23D2CA1 /* Pods-Tasbih.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tasbih.release.xcconfig"; path = "Target Support Files/Pods-Tasbih/Pods-Tasbih.release.xcconfig"; sourceTree = "<group>"; };
+		4B596E242029EABE9E68A564 /* Pods-Tasbih.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tasbih.debug.xcconfig"; path = "Target Support Files/Pods-Tasbih/Pods-Tasbih.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FAC29E795AA109CF07012D2 /* Pods_Tasbih.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +45,8 @@
 			children = (
 				2B8855E82446CD0A00B8DF0F /* Tasbih */,
 				2B8855E72446CD0A00B8DF0F /* Products */,
+				5DBB98C8122E548C59CB3B42 /* Pods */,
+				7088873D63844FBDF11584C9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,13 +63,30 @@
 			children = (
 				2B8855E92446CD0A00B8DF0F /* AppDelegate.swift */,
 				2B8855EB2446CD0A00B8DF0F /* SceneDelegate.swift */,
-				2B8855ED2446CD0A00B8DF0F /* ViewController.swift */,
-				2B8855EF2446CD0A00B8DF0F /* Main.storyboard */,
 				2B8855F22446CD0B00B8DF0F /* Assets.xcassets */,
 				2B8855F42446CD0B00B8DF0F /* LaunchScreen.storyboard */,
 				2B8855F72446CD0B00B8DF0F /* Info.plist */,
+				2B8855FD2446CDF100B8DF0F /* CounterViewController.swift */,
 			);
 			path = Tasbih;
+			sourceTree = "<group>";
+		};
+		5DBB98C8122E548C59CB3B42 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4B596E242029EABE9E68A564 /* Pods-Tasbih.debug.xcconfig */,
+				422B79F20F0CED6FF23D2CA1 /* Pods-Tasbih.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7088873D63844FBDF11584C9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17F43633513F366CD8A300DC /* Pods_Tasbih.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +96,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B8855FA2446CD0B00B8DF0F /* Build configuration list for PBXNativeTarget "Tasbih" */;
 			buildPhases = (
+				C6D6A2A02F843FF8018A626C /* [CP] Check Pods Manifest.lock */,
 				2B8855E22446CD0A00B8DF0F /* Sources */,
 				2B8855E32446CD0A00B8DF0F /* Frameworks */,
 				2B8855E42446CD0A00B8DF0F /* Resources */,
+				0FED4CFD3C81ACDD1D392B98 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,18 +151,59 @@
 			files = (
 				2B8855F62446CD0B00B8DF0F /* LaunchScreen.storyboard in Resources */,
 				2B8855F32446CD0B00B8DF0F /* Assets.xcassets in Resources */,
-				2B8855F12446CD0A00B8DF0F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0FED4CFD3C81ACDD1D392B98 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tasbih/Pods-Tasbih-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tasbih/Pods-Tasbih-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tasbih/Pods-Tasbih-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C6D6A2A02F843FF8018A626C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tasbih-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2B8855E22446CD0A00B8DF0F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B8855EE2446CD0A00B8DF0F /* ViewController.swift in Sources */,
+				2B8855FE2446CDF100B8DF0F /* CounterViewController.swift in Sources */,
 				2B8855EA2446CD0A00B8DF0F /* AppDelegate.swift in Sources */,
 				2B8855EC2446CD0A00B8DF0F /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +212,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2B8855EF2446CD0A00B8DF0F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2B8855F02446CD0A00B8DF0F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2B8855F42446CD0B00B8DF0F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -282,6 +339,7 @@
 		};
 		2B8855FB2446CD0B00B8DF0F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B596E242029EABE9E68A564 /* Pods-Tasbih.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +358,7 @@
 		};
 		2B8855FC2446CD0B00B8DF0F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 422B79F20F0CED6FF23D2CA1 /* Pods-Tasbih.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

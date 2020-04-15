@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CounterViewController.swift
 //  Tasbih
 //
 //  Created by Sugirbay Margulan on 4/15/20.
@@ -8,13 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CounterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        view.backgroundColor = .lightGray
     }
+    
 
 
 }
-
