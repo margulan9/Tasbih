@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class CounterViewController: UIViewController {
+class CounterViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var count = 0
     var feedbackGenerator: UIImpactFeedbackGenerator?
@@ -40,7 +40,7 @@ class CounterViewController: UIViewController {
     var kazakhLabel: UILabel = {
        let label = UILabel()
         label.text = "Aллаухумә салли 'алә Мухаммадин уа 'алә әәли Мухаммад"
-        label.textColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 20, weight: .light)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -89,7 +89,7 @@ class CounterViewController: UIViewController {
         let image = UIImage(named: "close")
         let resizedImage = image?.resized(to: CGSize(width: 25, height: 25))
         button.setImage(resizedImage, for: .normal)
-        button.tintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+        button.tintColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         button.addTarget(self, action: #selector(closePressed), for: .touchUpInside)
         return button
     }()
@@ -148,8 +148,8 @@ class CounterViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePressed))
+        tap.delegate = self
         transparentView.addGestureRecognizer(tap)
         
         feedbackGenerator = UIImpactFeedbackGenerator.init(style: .light)
@@ -187,9 +187,12 @@ class CounterViewController: UIViewController {
     
     @objc func listPressed() {
         feedbackGenerator?.impactOccurred()
+        let zikrVC = ZikrListViewController()
+        self.show(zikrVC, sender: self)
     }
     
     @objc func closePressed() {
+        
         feedbackGenerator?.impactOccurred()
         self.transparentView.isHidden = true
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
@@ -197,13 +200,21 @@ class CounterViewController: UIViewController {
         })
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool  {
+        if touch.view?.isDescendant(of: meaningView) == true {
+            return false
+        }
+        return true
+    }
+    
+    
     func setUpWordsView() {
         view.addSubview(wordsView)
         wordsView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(32)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-32)
-            make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.55)
+            make.height.equalTo(view).multipliedBy(0.5)
         }
         
         wordsView.addSubview(topView)
@@ -248,10 +259,10 @@ class CounterViewController: UIViewController {
     func setUpCounterView() {
         view.addSubview(counterView)
         counterView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(32)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-32)
-            make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.3)
+            make.height.equalTo(view).multipliedBy(0.3)
         }
         
         counterView.addSubview(counterButton)
@@ -271,8 +282,8 @@ class CounterViewController: UIViewController {
         
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(wordsView.snp.bottom).offset(8)
-            make.bottom.equalTo(counterView.snp.top).offset(-8)
+            make.top.equalTo(wordsView.snp.bottom).offset(4)
+            make.bottom.equalTo(counterView.snp.top).offset(-4)
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
         }
