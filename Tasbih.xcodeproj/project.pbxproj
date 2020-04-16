@@ -14,6 +14,7 @@
 		2B8855FE2446CDF100B8DF0F /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8855FD2446CDF100B8DF0F /* CounterViewController.swift */; };
 		2BD1DA052448157D002E89A7 /* ZikrListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1DA042448157D002E89A7 /* ZikrListViewController.swift */; };
 		2BD1DA0724482900002E89A7 /* ZikirCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1DA0624482900002E89A7 /* ZikirCell.swift */; };
+		2BD1DA0924486D96002E89A7 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1DA0824486D96002E89A7 /* Helpers.swift */; };
 		8FAC29E795AA109CF07012D2 /* Pods_Tasbih.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F43633513F366CD8A300DC /* Pods_Tasbih.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		2B8855FD2446CDF100B8DF0F /* CounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewController.swift; sourceTree = "<group>"; };
 		2BD1DA042448157D002E89A7 /* ZikrListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZikrListViewController.swift; sourceTree = "<group>"; };
 		2BD1DA0624482900002E89A7 /* ZikirCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZikirCell.swift; sourceTree = "<group>"; };
+		2BD1DA0824486D96002E89A7 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		422B79F20F0CED6FF23D2CA1 /* Pods-Tasbih.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tasbih.release.xcconfig"; path = "Target Support Files/Pods-Tasbih/Pods-Tasbih.release.xcconfig"; sourceTree = "<group>"; };
 		4B596E242029EABE9E68A564 /* Pods-Tasbih.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tasbih.debug.xcconfig"; path = "Target Support Files/Pods-Tasbih/Pods-Tasbih.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 				2B8855FD2446CDF100B8DF0F /* CounterViewController.swift */,
 				2BD1DA042448157D002E89A7 /* ZikrListViewController.swift */,
 				2BD1DA0624482900002E89A7 /* ZikirCell.swift */,
+				2BD1DA0824486D96002E89A7 /* Helpers.swift */,
 			);
 			path = Tasbih;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B8855FE2446CDF100B8DF0F /* CounterViewController.swift in Sources */,
+				2BD1DA0924486D96002E89A7 /* Helpers.swift in Sources */,
 				2B8855EA2446CD0A00B8DF0F /* AppDelegate.swift in Sources */,
 				2BD1DA052448157D002E89A7 /* ZikrListViewController.swift in Sources */,
 				2BD1DA0724482900002E89A7 /* ZikirCell.swift in Sources */,
