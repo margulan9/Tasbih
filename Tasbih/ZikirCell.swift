@@ -30,7 +30,7 @@ class ZikirCell: UITableViewCell {
         return label
     }()
     
-    var zikrSubtitle: UILabel = {
+    var zikrTranscript: UILabel = {
         let label = UILabel()
         label.text = "Aллаухумә салли 'алә Мухаммадин уа 'алә әәли Мухаммад"
         label.font = UIFont.systemFont(ofSize: 16, weight: .light)
@@ -113,8 +113,8 @@ class ZikirCell: UITableViewCell {
             make.trailing.equalTo(zikrView).offset(-16)
         }
         
-        zikrView.addSubview(zikrSubtitle)
-        zikrSubtitle.snp.makeConstraints { (make) in
+        zikrView.addSubview(zikrTranscript)
+        zikrTranscript.snp.makeConstraints { (make) in
             make.leading.equalTo(zikrView).offset(16)
             make.top.equalTo(zikrTitle.snp.bottom).offset(4)
             make.trailing.equalTo(zikrView).offset(-16)
@@ -123,7 +123,7 @@ class ZikirCell: UITableViewCell {
         zikrView.addSubview(amountLabel)
         amountLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(zikrView).offset(16)
-            make.top.equalTo(zikrSubtitle.snp.bottom).offset(12)
+            make.top.equalTo(zikrTranscript.snp.bottom).offset(12)
             make.trailing.equalTo(zikrView).offset(-16)
         }
         

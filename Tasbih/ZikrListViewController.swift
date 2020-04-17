@@ -9,8 +9,15 @@
 import UIKit
 import SnapKit
 
+protocol MyDataSendingDelegateProtocol {
+    func sendDataToFirstViewController(zikrFromList: Zikir)
+}
+
 class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    var zikirArray = [Zikir]()
+    var delegate: MyDataSendingDelegateProtocol? = nil
+    
     var navBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         let navItem = UINavigationItem(title: "Зікірлер")
@@ -301,11 +308,17 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
 
 extension ZikrListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return zikirArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! ZikirCell
+        let zikirIndex = zikirArray[indexPath.row]
+        cell.zikrTitle.text = zikirIndex.zikirName
+        cell.zikrTranscript.text = zikirIndex.zikirTranscript
+        cell.todayZikirLabel.text = "\(zikirIndex.todayCount)"
+        cell.totalZikrLabel.text = "\(zikirIndex.totalCount)"
+        cell.selectionStyle = .none
         return cell
     }
 }

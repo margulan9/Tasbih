@@ -9,10 +9,16 @@
 import UIKit
 import SnapKit
 
-class CounterViewController: UIViewController, UIGestureRecognizerDelegate {
+class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDataSendingDelegateProtocol {
+    func sendDataToFirstViewController(zikrFromList: Zikir) {
+        arabLabel.text = zikrFromList.zikirArabName
+        kazakhLabel.text = zikrFromList.zikirTranscript
+        meaningLabel.text = zikrFromList.zikirMeaning
+    }
     
     var count = 0
     var feedbackGenerator: UIImpactFeedbackGenerator?
+    var zikr: Zikir?
     
     var wordsView: UIView = {
         let view = UIView()
@@ -146,7 +152,7 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePressed))
         tap.delegate = self
@@ -188,6 +194,7 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func listPressed() {
         feedbackGenerator?.impactOccurred()
         let zikrVC = ZikrListViewController()
+        zikrVC.delegate = self
         self.show(zikrVC, sender: self)
     }
     
