@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B6973092449728300C58B2A /* Zikir.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6973082449728300C58B2A /* Zikir.swift */; };
 		2B8855EA2446CD0A00B8DF0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8855E92446CD0A00B8DF0F /* AppDelegate.swift */; };
 		2B8855EC2446CD0A00B8DF0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8855EB2446CD0A00B8DF0F /* SceneDelegate.swift */; };
 		2B8855F32446CD0B00B8DF0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B8855F22446CD0B00B8DF0F /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		17F43633513F366CD8A300DC /* Pods_Tasbih.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tasbih.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B6973082449728300C58B2A /* Zikir.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zikir.swift; sourceTree = "<group>"; };
 		2B8855E62446CD0A00B8DF0F /* Tasbih.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tasbih.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B8855E92446CD0A00B8DF0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B8855EB2446CD0A00B8DF0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				2BD1DA042448157D002E89A7 /* ZikrListViewController.swift */,
 				2BD1DA0624482900002E89A7 /* ZikirCell.swift */,
 				2BD1DA0824486D96002E89A7 /* Helpers.swift */,
+				2B6973082449728300C58B2A /* Zikir.swift */,
 			);
 			path = Tasbih;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				2BD1DA052448157D002E89A7 /* ZikrListViewController.swift in Sources */,
 				2BD1DA0724482900002E89A7 /* ZikirCell.swift in Sources */,
 				2B8855EC2446CD0A00B8DF0F /* SceneDelegate.swift in Sources */,
+				2B6973092449728300C58B2A /* Zikir.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

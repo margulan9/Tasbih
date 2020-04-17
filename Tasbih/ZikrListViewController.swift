@@ -65,46 +65,59 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
         return label
     }()
     
+    var errorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Бос орынды толтырыңыз"
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.textColor = .red
+        label.isHidden = true
+        return label
+    }()
+    
     var zikrNameTF: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Зікір атауы"
+        textField.attributedPlaceholder = NSAttributedString(string: "Зікір атауы *",
+        attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)])
         textField.font = UIFont.systemFont(ofSize: 16, weight: .light)
         textField.borderStyle = .none
         textField.returnKeyType = UIReturnKeyType.done
-        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.8823529412, green: 0.8980392157, blue: 0.9215686275, alpha: 1), width: 1.5)
+        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.6274509804, green: 0.6745098039, blue: 0.7411764706, alpha: 1), width: 1.5)
         textField.setLeftPaddingPoints(4)
         return textField
     }()
     
     var zikrTranscriptTF: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Транскрипт"
+        textField.attributedPlaceholder = NSAttributedString(string: "Транскрипт",
+        attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)])
         textField.font = UIFont.systemFont(ofSize: 16, weight: .light)
         textField.borderStyle = .none
         textField.returnKeyType = UIReturnKeyType.done
-        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.8823529412, green: 0.8980392157, blue: 0.9215686275, alpha: 1), width: 1.5)
+        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.6274509804, green: 0.6745098039, blue: 0.7411764706, alpha: 1), width: 1.5)
         textField.setLeftPaddingPoints(4)
         return textField
     }()
     
     var zikrArabTF: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Арабша жазылуы"
+        textField.attributedPlaceholder = NSAttributedString(string: "Арабша жазылуы",
+        attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)])
         textField.font = UIFont.systemFont(ofSize: 16, weight: .light)
         textField.borderStyle = .none
         textField.returnKeyType = UIReturnKeyType.done
-        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.8823529412, green: 0.8980392157, blue: 0.9215686275, alpha: 1), width: 1.5)
+        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.6274509804, green: 0.6745098039, blue: 0.7411764706, alpha: 1), width: 1.5)
         textField.setLeftPaddingPoints(4)
         return textField
     }()
     
     var zikrMeaningTF: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Мағынасы"
+        textField.attributedPlaceholder = NSAttributedString(string: "Мағынасы *",
+        attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)])
         textField.font = UIFont.systemFont(ofSize: 16, weight: .light)
         textField.borderStyle = .none
         textField.returnKeyType = UIReturnKeyType.done
-        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.8823529412, green: 0.8980392157, blue: 0.9215686275, alpha: 1), width: 1.5)
+        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.6274509804, green: 0.6745098039, blue: 0.7411764706, alpha: 1), width: 1.5)
         textField.setLeftPaddingPoints(4)
         return textField
     }()
@@ -117,6 +130,7 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
         button.setTitle("Қосу", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .light)
         button.tintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+        button.addTarget(self, action: #selector(addNewZikrPressed), for: .touchUpInside)
         return button
     }()
     
@@ -130,6 +144,13 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
         transparentView.addGestureRecognizer(tapGesture)
         addNewZikrView.removeGestureRecognizer(tapGesture)
         view.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+        
+        zikirArray = [
+            Zikir(zikirName: "Салауат", zikirArabName: "اللّهُـمَّ صَلِّ عَلـى مُحمَّـد، وَعَلـى آلِ مُحمَّد", zikirMeaning: "Аллаһым, Мұхаммедке және оның отбасына рақым ете гөр.", zikirTranscript: "Aллаухумә салли 'алә Мухаммадин уа 'алә әәли Мухаммад", todayCount: 0, totalCount: 0),
+            Zikir(zikirName: "Кәлима Таухид", zikirArabName: "لَآ اِلٰهَ اِلَّا اللّٰهُ مُحَمَّدٌ رَّسُوْلُ اللّٰهِؕ", zikirMeaning: "Аллаһтан басқа тәңір жоқ, Мұхаммед оның елшісі.", zikirTranscript: "Лә иләһә илләллаһ, Мұхаммад-ур расулуллаһ", todayCount: 0, totalCount: 0),
+            Zikir(zikirName: "Субханаллаһи уә бихамдиһи", zikirArabName: "لَآ اِلٰهَ اِلَّا اللّٰهُ مُحَمَّدٌ رَّسُوْلُ اللّٰهِؕ", zikirMeaning: " ", zikirTranscript: "Субханаллаһи уә бихамдиһи, субханаллаһи 'азыийм", todayCount: 0, totalCount: 0)
+        ]
+        
         setUpNavBar()
         setUpTableView()
         setUpAddView()
@@ -140,17 +161,47 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func addPressed() {
-        self.transparentView.isHidden = false
-        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.addNewZikrView.isHidden = false
-        })
+        close(isClosed: false)
+    }
+    
+    @objc func addNewZikrPressed() {
+        
+        if let zikrName = zikrNameTF.text,
+            let zikrMeaning = zikrMeaningTF.text,
+            let zikrTranscript = zikrTranscriptTF.text,
+            let zikrArabName = zikrArabTF.text {
+            
+            if zikrNameTF.text == "" || zikrMeaningTF.text == "" {
+                zikrNameTF.addLine(position: .LINE_POSITION_BOTTOM, color: .red, width: 1.5)
+                zikrMeaningTF.addLine(position: .LINE_POSITION_BOTTOM, color: .red, width: 1.5)
+                errorLabel.isHidden = false
+            } else {
+                let newZikr = Zikir(zikirName: zikrName, zikirArabName: zikrArabName, zikirMeaning: zikrMeaning, zikirTranscript: zikrTranscript, todayCount: 0, totalCount: 0)
+                zikirArray.append(newZikr)
+                tableView.reloadData()
+                close(isClosed: true)
+                emptyTF()
+            }
+        }
     }
     
     @objc func closePressed() {
-        self.transparentView.isHidden = true
+        close(isClosed: true)
+        emptyTF()
+    }
+    
+    func close(isClosed: Bool) {
+        self.transparentView.isHidden = isClosed
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.addNewZikrView.isHidden = true
+            self.addNewZikrView.isHidden = isClosed
         })
+    }
+    
+    func emptyTF() {
+        zikrTranscriptTF.text = ""
+        zikrMeaningTF.text = ""
+        zikrArabTF.text = ""
+        zikrNameTF.text = ""
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool  {
@@ -199,20 +250,19 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
         addNewZikrView.snp.makeConstraints { (make) in
             make.leading.equalTo(view).offset(16)
             make.trailing.equalTo(view).offset(-16)
-            make.height.equalTo(360)
+            make.height.equalTo(352)
             make.center.equalTo(view)
         }
-        
-//        addNewZikrView.addSubview(closeButton)
-//        closeButton.snp.makeConstraints { (make) in
-//            make.top.equalTo(addNewZikrView).offset(8)
-//            make.leading.equalTo(addNewZikrView).offset(8)
-//            make.height.width.equalTo(25)
-//        }
         
         addNewZikrView.addSubview(addZikrLabel)
         addZikrLabel.snp.makeConstraints { (make) in
             make.top.equalTo(addNewZikrView).offset(16)
+            make.centerX.equalTo(addNewZikrView)
+        }
+        
+        addNewZikrView.addSubview(errorLabel)
+        errorLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(addZikrLabel.snp.bottom).offset(4)
             make.centerX.equalTo(addNewZikrView)
         }
         
@@ -229,6 +279,10 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func setUpTextFields() {
         
+        zikrNameTF.delegate = self
+        zikrArabTF.delegate = self
+        zikrMeaningTF.delegate = self
+        zikrTranscriptTF.delegate = self
         
         textFieldStackView = UIStackView(arrangedSubviews: [zikrNameTF, zikrArabTF, zikrMeaningTF, zikrTranscriptTF])
         textFieldStackView.distribution = .fillEqually
@@ -237,7 +291,7 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
         
         addNewZikrView.addSubview(textFieldStackView)
         textFieldStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(addZikrLabel.snp.bottom).offset(40)
+            make.top.equalTo(addZikrLabel.snp.bottom).offset(32)
             make.leading.equalTo(addNewZikrView).offset(24)
             make.trailing.equalTo(addNewZikrView).offset(-24)
             make.height.equalTo(190)
@@ -254,6 +308,24 @@ extension ZikrListViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! ZikirCell
         return cell
     }
+}
+
+extension ZikrListViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1), width: 1.5)
+        errorLabel.isHidden = true
+    }
     
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.6274509804, green: 0.6745098039, blue: 0.7411764706, alpha: 1), width: 1.5)
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let zikirIndex = zikirArray[indexPath.row]
+        
+        let zikrToBeSend = Zikir(zikirName: zikirIndex.zikirName, zikirArabName: zikirIndex.zikirArabName, zikirMeaning: zikirIndex.zikirMeaning, zikirTranscript: zikirIndex.zikirTranscript, todayCount: zikirIndex.todayCount, totalCount: zikirIndex.totalCount)
+        self.delegate?.sendDataToFirstViewController(zikrFromList: zikrToBeSend)
+            dismiss(animated: true, completion: nil)
+    }
 }
