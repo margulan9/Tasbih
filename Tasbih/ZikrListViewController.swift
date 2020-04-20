@@ -8,14 +8,16 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
 
 protocol MyDataSendingDelegateProtocol {
-    func sendDataToFirstViewController(zikrFromList: Zikir)
+    func sendDataToFirstViewController(zikrFromList: Zikir, zikirIndexPath: Int)
 }
 
 class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
 
-    var zikirArray = [Zikir]()
+    let realm = try! Realm()
+    var zikirArray:Results<Zikir>!
     var delegate: MyDataSendingDelegateProtocol? = nil
     
     var navBar: UINavigationBar = {
@@ -152,11 +154,7 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
         addNewZikrView.removeGestureRecognizer(tapGesture)
         view.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         
-        zikirArray = [
-            Zikir(zikirName: "Салауат", zikirArabName: "اللّهُـمَّ صَلِّ عَلـى مُحمَّـد، وَعَلـى آلِ مُحمَّد", zikirMeaning: "Аллаһым, Мұхаммедке және оның отбасына рақым ете гөр.", zikirTranscript: "Aллаухумә салли 'алә Мухаммадин уа 'алә әәли Мухаммад", todayCount: 0, totalCount: 0),
-            Zikir(zikirName: "Кәлима Таухид", zikirArabName: "لَآ اِلٰهَ اِلَّا اللّٰهُ مُحَمَّدٌ رَّسُوْلُ اللّٰهِؕ", zikirMeaning: "Аллаһтан басқа тәңір жоқ, Мұхаммед оның елшісі.", zikirTranscript: "Лә иләһә илләллаһ, Мұхаммад-ур расулуллаһ", todayCount: 0, totalCount: 0),
-            Zikir(zikirName: "Субханаллаһи уә бихамдиһи", zikirArabName: "لَآ اِلٰهَ اِلَّا اللّٰهُ مُحَمَّدٌ رَّسُوْلُ اللّٰهِؕ", zikirMeaning: " ", zikirTranscript: "Субханаллаһи уә бихамдиһи, субханаллаһи 'азыийм", todayCount: 0, totalCount: 0)
-        ]
+        zikirArray = realm.objects(Zikir.self)
         
         setUpNavBar()
         setUpTableView()
@@ -183,8 +181,10 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
                 zikrMeaningTF.addLine(position: .LINE_POSITION_BOTTOM, color: .red, width: 1.5)
                 errorLabel.isHidden = false
             } else {
-                let newZikr = Zikir(zikirName: zikrName, zikirArabName: zikrArabName, zikirMeaning: zikrMeaning, zikirTranscript: zikrTranscript, todayCount: 0, totalCount: 0)
-                zikirArray.append(newZikr)
+                let newZikr = Zikir(value: [zikrName, zikrArabName, zikrMeaning, zikrTranscript, 0, 0])
+                try! realm.write {
+                    realm.add(newZikr)
+                }
                 tableView.reloadData()
                 close(isClosed: true)
                 emptyTF()
@@ -308,7 +308,10 @@ class ZikrListViewController: UIViewController, UIGestureRecognizerDelegate {
 
 extension ZikrListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return zikirArray.count
+        if zikirArray.count != 0 {
+            return zikirArray.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -321,6 +324,24 @@ extension ZikrListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let zikirIndex = zikirArray[indexPath.row]
+        let zikrToBeSend = Zikir(value: [zikirIndex.zikirName, zikirIndex.zikirArabName, zikirIndex.zikirMeaning,  zikirIndex.zikirTranscript, zikirIndex.todayCount, zikirIndex.totalCount])
+        self.delegate?.sendDataToFirstViewController(zikrFromList: zikrToBeSend, zikirIndexPath: indexPath.row)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let editingRow = zikirArray[indexPath.row]
+        if editingStyle == .delete {
+            try! self.realm.write {
+                self.realm.delete(editingRow)
+                tableView.reloadData()
+            }
+        }
+    }
 }
 
 extension ZikrListViewController: UITextFieldDelegate {
@@ -332,13 +353,5 @@ extension ZikrListViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         textField.addLine(position: .LINE_POSITION_BOTTOM, color: #colorLiteral(red: 0.6274509804, green: 0.6745098039, blue: 0.7411764706, alpha: 1), width: 1.5)
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let zikirIndex = zikirArray[indexPath.row]
-        
-        let zikrToBeSend = Zikir(zikirName: zikirIndex.zikirName, zikirArabName: zikirIndex.zikirArabName, zikirMeaning: zikirIndex.zikirMeaning, zikirTranscript: zikirIndex.zikirTranscript, todayCount: zikirIndex.todayCount, totalCount: zikirIndex.totalCount)
-        self.delegate?.sendDataToFirstViewController(zikrFromList: zikrToBeSend)
-            dismiss(animated: true, completion: nil)
-    }
 }
+

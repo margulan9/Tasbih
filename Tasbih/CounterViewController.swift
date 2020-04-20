@@ -8,9 +8,10 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
 
 class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDataSendingDelegateProtocol {
-    func sendDataToFirstViewController(zikrFromList: Zikir) {
+    func sendDataToFirstViewController(zikrFromList: Zikir, zikirIndexPath: Int) {
         arabLabel.text = zikrFromList.zikirArabName
         if zikrFromList.zikirTranscript == "" {
             kazakhLabel.text = zikrFromList.zikirName
@@ -19,11 +20,16 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
         }
         meaningLabel.text = zikrFromList.zikirMeaning
         counterButton.setTitle("\(zikrFromList.todayCount)", for: .normal)
+        indexPath = zikirIndexPath
+        count = zikirArray[indexPath].todayCount
     }
     
+    let realm = try! Realm()
+    var zikirArray:Results<Zikir>!
     var count = 0
     var feedbackGenerator: UIImpactFeedbackGenerator?
     var zikr: Zikir?
+    var indexPath:Int = 0
     
     var wordsView: UIView = {
         let view = UIView()
@@ -61,7 +67,7 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
     var meaningButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Мағынасы", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         button.addTarget(self, action: #selector(meaningPressed), for: .touchUpInside)
         return button
@@ -158,6 +164,9 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        zikirArray = realm.objects(Zikir.self)
+        checkForEmptyArray()
+        
         view.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePressed))
         tap.delegate = self
@@ -165,11 +174,26 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
         
         feedbackGenerator = UIImpactFeedbackGenerator.init(style: .light)
         feedbackGenerator?.prepare()
-        
+                
         setUpWordsView()
         setUpCounterView()
         setUpButtons()
         setUpMeaningView()
+    }
+    
+    func checkForEmptyArray() {
+        if !zikirArray.isEmpty {
+            arabLabel.text = zikirArray[0].zikirArabName
+            kazakhLabel.text = zikirArray[0].zikirTranscript
+            meaningLabel.text = zikirArray[0].zikirMeaning
+            counterButton.setTitle("\(zikirArray[0].todayCount)", for: .normal)
+            count = zikirArray[0].todayCount
+        } else {
+            let newZikr = Zikir(value: ["Салауат", "اللّهُـمَّ صَلِّ عَلـى مُحمَّـد، وَعَلـى آلِ مُحمَّد", "Аллаһым, Мұхаммедке және оның отбасына рақым ете гөр.", "Aллаухумә салли 'алә Мухаммадин уа 'алә әәли Мухаммад", 0, 0])
+            try! realm.write {
+                realm.add(newZikr)
+            }
+        }
     }
     
     @objc func counterPressed() {
@@ -198,9 +222,16 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
     
     @objc func listPressed() {
         feedbackGenerator?.impactOccurred()
+        updateCounter()
         let zikrVC = ZikrListViewController()
         zikrVC.delegate = self
         self.show(zikrVC, sender: self)
+    }
+    
+    func updateCounter() {
+        try! realm.write {
+            zikirArray[indexPath].todayCount = count
+        }
     }
     
     @objc func closePressed() {

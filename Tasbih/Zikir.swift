@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
-struct Zikir {
-    let zikirName: String
-    let zikirArabName: String
-    let zikirMeaning: String
-    let zikirTranscript: String
-    let todayCount: Int
-    let totalCount: Int
+
+class Zikir: Object {
+    @objc dynamic var zikirName = ""
+    @objc dynamic var zikirArabName = ""
+    @objc dynamic var zikirMeaning = ""
+    @objc dynamic var zikirTranscript = ""
+    @objc dynamic var todayCount = 0
+    @objc dynamic var totalCount = 0
 }
