@@ -12,8 +12,13 @@ import SnapKit
 class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDataSendingDelegateProtocol {
     func sendDataToFirstViewController(zikrFromList: Zikir) {
         arabLabel.text = zikrFromList.zikirArabName
-        kazakhLabel.text = zikrFromList.zikirTranscript
+        if zikrFromList.zikirTranscript == "" {
+            kazakhLabel.text = zikrFromList.zikirName
+        } else {
+            kazakhLabel.text = zikrFromList.zikirTranscript
+        }
         meaningLabel.text = zikrFromList.zikirMeaning
+        counterButton.setTitle("\(zikrFromList.todayCount)", for: .normal)
     }
     
     var count = 0
