@@ -7,4 +7,5 @@ target 'Tasbih' do
 
   # Pods for Tasbih
 	pod 'SnapKit', '~> 5.0.0'
+	pod 'RealmSwift'
 end
