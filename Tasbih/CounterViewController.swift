@@ -160,6 +160,84 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
         button.addTarget(self, action: #selector(listPressed), for: .touchUpInside)
         return button
     }()
+    
+    var buttonStackView = UIStackView()
+    
+    var settingsView:UIView = {
+        let view = UIView()
+        view.isHidden = true
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
+        view.layer.borderWidth = 2
+        view.layer.borderColor = #colorLiteral(red: 0.7529411765, green: 0.7960784314, blue: 0.8509803922, alpha: 1)
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    var languageLabel:UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        label.text = "Тіл:"
+        return label
+    }()
+    
+    var kazakhButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = #colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 1)
+        button.isEnabled = false
+        button.setTitle("Қазақша", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        button.setTitleColor(#colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 1), for: .normal)
+       // button.addTarget(self, action: #selector(addNewZikrPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    var russianButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+        button.setTitle("Русский", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        button.tintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+       // button.addTarget(self, action: #selector(addNewZikrPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    var settingButtonStackView = UIStackView()
+    
+    var lineView:UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.6, green: 0.631372549, blue: 0.6862745098, alpha: 1)
+        return view
+    }()
+    var lineView2:UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.6, green: 0.631372549, blue: 0.6862745098, alpha: 1)
+        return view
+    }()
+    
+    var darkModeLabel:UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        label.text = "Қара Режимі"
+        return label
+    }()
+    
+    var soundLabel:UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        label.text = "Діріл"
+        return label
+    }()
+    
+    var darkModeSwitch = UISwitch()
+    var soundSwitch = UISwitch()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,7 +257,9 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
         setUpCounterView()
         setUpButtons()
         setUpMeaningView()
+        setUpSettingsView()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AppUtility.lockOrientation(.portrait)
@@ -227,6 +307,10 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
     
     @objc func settingsPressed() {
         feedbackGenerator?.impactOccurred()
+        self.transparentView.isHidden = false
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.settingsView.isHidden = false
+        })
     }
     
     @objc func listPressed() {
@@ -250,10 +334,13 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.meaningView.isHidden = true
         })
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.settingsView.isHidden = true
+        })
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool  {
-        if touch.view?.isDescendant(of: meaningView) == true {
+        if touch.view?.isDescendant(of: meaningView) == true || touch.view?.isDescendant(of: settingsView) == true{
             return false
         }
         return true
@@ -327,7 +414,6 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
     }
     
     func setUpButtons() {
-        var buttonStackView = UIStackView()
         buttonStackView = UIStackView(arrangedSubviews: [resetButton, settingsButton, listButton])
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 10
@@ -370,6 +456,77 @@ class CounterViewController: UIViewController, UIGestureRecognizerDelegate, MyDa
             make.center.equalTo(meaningView)
             make.leading.equalTo(meaningView).offset(16)
             make.trailing.equalTo(meaningView).offset(-16)
+        }
+    }
+    
+    func setUpSettingsView() {
+        transparentView.addSubview(settingsView)
+        settingsView.snp.makeConstraints { (make) in
+            make.leading.equalTo(transparentView).offset(32)
+            make.trailing.equalTo(transparentView).offset(-32)
+            make.bottom.equalTo(buttonStackView.snp.top).offset(-4)
+            make.height.equalTo(154)
+        }
+        
+        settingsView.addSubview(languageLabel)
+        languageLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(settingsView).offset(20)
+            make.leading.equalTo(settingsView).offset(16)
+        }
+        
+        buttonStackView = UIStackView(arrangedSubviews: [kazakhButton, russianButton])
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 10
+        buttonStackView.axis = .horizontal
+        
+        settingsView.addSubview(buttonStackView)
+        buttonStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(settingsView).offset(14)
+            make.trailing.equalTo(settingsView).offset(-8)
+            make.height.equalTo(30)
+            make.width.equalTo(160)
+        }
+        
+        settingsView.addSubview(lineView)
+        lineView.snp.makeConstraints { (make) in
+            make.top.equalTo(buttonStackView.snp.bottom).offset(8)
+            make.leading.equalTo(settingsView).offset(16)
+            make.trailing.equalTo(settingsView).offset(-8)
+            make.height.equalTo(0.3)
+        }
+        
+        settingsView.addSubview(darkModeLabel)
+        darkModeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(lineView.snp.bottom).offset(16)
+            make.leading.equalTo(settingsView).offset(16)
+        }
+        
+        settingsView.addSubview(darkModeSwitch)
+        darkModeSwitch.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        darkModeSwitch.snp.makeConstraints { (make) in
+            make.top.equalTo(lineView.snp.bottom).offset(10)
+            make.trailing.equalTo(settingsView).offset(-8)
+        }
+        
+        settingsView.addSubview(lineView2)
+        lineView2.snp.makeConstraints { (make) in
+            make.top.equalTo(darkModeSwitch.snp.bottom).offset(8)
+            make.leading.equalTo(settingsView).offset(16)
+            make.trailing.equalTo(settingsView).offset(-8)
+            make.height.equalTo(0.3)
+        }
+        
+        settingsView.addSubview(soundLabel)
+        soundLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(lineView2.snp.bottom).offset(16)
+            make.leading.equalTo(settingsView).offset(16)
+        }
+        
+        settingsView.addSubview(soundSwitch)
+        soundSwitch.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        soundSwitch.snp.makeConstraints { (make) in
+            make.top.equalTo(lineView2.snp.bottom).offset(10)
+            make.trailing.equalTo(settingsView).offset(-8)
         }
     }
 }
